@@ -6,20 +6,17 @@ import com.mhdsuhail.stonks.data.remote.StockAPI
 import com.mhdsuhail.stonks.domain.model.CompanyListing
 import com.mhdsuhail.stonks.domain.repository.StockRepository
 import com.mhdsuhail.stonks.util.Resource
-import com.opencsv.CSVReader
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 import java.io.IOException
-import java.io.InputStream
-import java.io.InputStreamReader
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class StockRepositoryImpl @Inject constructor(
-    val api: StockAPI,
-    val db: StockDatabase
+    private val api: StockAPI,
+    private val db: StockDatabase
 ) : StockRepository {
 
     private val dao = db.stockDao
