@@ -1,7 +1,9 @@
 package com.mhdsuhail.stonks.data.repository
 
+import com.mhdsuhail.stonks.data.csv.CSVParser
 import com.mhdsuhail.stonks.data.local.StockDatabase
 import com.mhdsuhail.stonks.data.mapper.toCompanyListing
+import com.mhdsuhail.stonks.data.mapper.toCompanyListingEntity
 import com.mhdsuhail.stonks.data.remote.StockAPI
 import com.mhdsuhail.stonks.domain.model.CompanyListing
 import com.mhdsuhail.stonks.domain.repository.StockRepository
@@ -16,10 +18,12 @@ import javax.inject.Singleton
 @Singleton
 class StockRepositoryImpl @Inject constructor(
     private val api: StockAPI,
-    private val db: StockDatabase
+    private val db: StockDatabase,
+    val companyListingParser: CSVParser<CompanyListing>
 ) : StockRepository {
 
     private val dao = db.stockDao
+
     // Only responsibility of this function is to cache data - SOLID principle
     override suspend fun getCompanyListings(
         fetchFromRemote: Boolean,
@@ -32,7 +36,7 @@ class StockRepositoryImpl @Inject constructor(
 
             val localListings = dao.searchCompanyListings(query)
 
-            emit(Resource.Success( data = localListings.map{ it.toCompanyListing() }))
+            emit(Resource.Success(data = localListings.map { it.toCompanyListing() }))
 
             // Do we want to make an API call ?
 
@@ -40,7 +44,7 @@ class StockRepositoryImpl @Inject constructor(
 
             val shouldJustLoadFromCache = !isDbEmpty && !fetchFromRemote
 
-            if(shouldJustLoadFromCache){
+            if (shouldJustLoadFromCache) {
                 emit(Resource.Loading(false))
                 return@flow
             }
@@ -48,14 +52,24 @@ class StockRepositoryImpl @Inject constructor(
             val remoteListings = try {
 
                 val response = api.getListings()
-
-
-            }catch (e: IOException){
+                companyListingParser.parse(response.byteStream())
+            } catch (e: IOException) {
                 e.printStackTrace()
                 emit(Resource.Error("Could not parse data !"))
-            }catch (e: HttpException){
+                null
+            } catch (e: HttpException) {
                 e.printStackTrace()
                 emit(Resource.Error("Unable to connect to api! "))
+                null
+            }
+
+            remoteListings?.let { listings ->
+                dao.clearCompanyListings()
+                dao.insertCompanyListings(listings.map { it.toCompanyListingEntity() })
+                emit(
+                    Resource.Success(
+                        data = dao.searchCompanyListings("").map { it.toCompanyListing() }))
+                emit(Resource.Loading(false))
             }
 
         }
