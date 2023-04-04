@@ -6,21 +6,19 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.Divider
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.max
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
+import com.mhdsuhail.stonks.ui.theme.TextWhite
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
 
-@Composable
 @Destination(start = true)
+@Composable
 fun CompanyListingScreen(
     navigator: DestinationsNavigator,
     viewModel: CompanyListingsViewModel = hiltViewModel()
@@ -40,9 +38,13 @@ fun CompanyListingScreen(
             modifier = Modifier
                 .padding(16.dp)
                 .fillMaxWidth(),
-            placeholder = { Text("Search...") },
+            placeholder = { Text("Search...",
+                color = MaterialTheme.colors.onBackground) },
             maxLines = 1,
-            singleLine = true
+            singleLine = true,
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                unfocusedBorderColor = MaterialTheme.colors.onBackground
+            )
         )
 
         SwipeRefresh(state = swipeRefreshState, onRefresh = {

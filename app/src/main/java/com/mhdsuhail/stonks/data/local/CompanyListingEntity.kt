@@ -3,7 +3,7 @@ package com.mhdsuhail.stonks.data.local
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity(tableName = "companylistings")
 data class CompanyListingEntity(
     @PrimaryKey
     val id: Int? = null,

@@ -13,12 +13,12 @@ interface StockDao {
         companyListingEntities: List<CompanyListingEntity>
     )
 
-    @Query("DELETE * FROM companylistingentity")
+    @Query("DELETE FROM companylistings")
     suspend fun clearCompanyListings()
 
     @Query("""
         SELECT * 
-        FROM companylistingentity
+        FROM companylistings
         WHERE
         LOWER(name) LIKE '%' || LOWER(:query) || '%' OR
             UPPER(:query) == symbol

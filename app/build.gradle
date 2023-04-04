@@ -3,12 +3,24 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
-    id 'com.google.devtools.ksp' version '1.6.10-1.0.2'
+    id 'com.google.devtools.ksp' version '1.7.0-1.0.6'
 }
 
 android {
     namespace 'com.mhdsuhail.stonks'
     compileSdk 33
+
+    // To Ensure the IDE finds the generated compose-destinations classes
+    kotlin {
+        sourceSets {
+            debug {
+                kotlin.srcDir("build/generated/ksp/debug/kotlin")
+            }
+            release {
+                kotlin.srcDir("build/generated/ksp/release/kotlin")
+            }
+        }
+    }
 
     defaultConfig {
         applicationId "com.mhdsuhail.stonks"
@@ -75,16 +87,11 @@ dependencies {
     implementation 'androidx.hilt:hilt-navigation-compose:1.1.0-alpha01'
 
     // Compose dependencies
-//    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1"
-//    implementation "androidx.compose.material:material-icons-extended:$compose_version"
-//    implementation "com.google.accompanist:accompanist-flowlayout:0.17.0"
-//    implementation 'androidx.paging:paging-compose:1.0.0-alpha14'
-//    implementation "androidx.activity:activity-compose:1.6.0-alpha01"
       implementation "com.google.accompanist:accompanist-swiperefresh:0.24.2-alpha"
 
     // Compose Nav Destinations
-    implementation 'io.github.raamcosta.compose-destinations:core:1.1.2-beta'
-    ksp 'io.github.raamcosta.compose-destinations:ksp:1.1.2-beta'
+    implementation 'io.github.raamcosta.compose-destinations:core:1.7.38-beta'
+    ksp 'io.github.raamcosta.compose-destinations:ksp:1.7.38-beta'
 
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
