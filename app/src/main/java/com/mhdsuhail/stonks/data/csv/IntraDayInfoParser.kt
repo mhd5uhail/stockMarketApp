@@ -2,7 +2,6 @@ package com.mhdsuhail.stonks.data.csv
 
 import com.mhdsuhail.stonks.data.mapper.toIntraDayInfo
 import com.mhdsuhail.stonks.data.remote.dto.IntraDayInfoDto
-import com.mhdsuhail.stonks.domain.model.CompanyListing
 import com.mhdsuhail.stonks.domain.model.IntraDayInfo
 import com.opencsv.CSVReader
 import kotlinx.coroutines.Dispatchers
@@ -10,8 +9,11 @@ import kotlinx.coroutines.withContext
 import java.io.InputStream
 import java.io.InputStreamReader
 import java.time.LocalDateTime
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class IntraDayInfoParser : CSVParser<IntraDayInfo> {
+@Singleton
+class IntraDayInfoParser @Inject constructor() : CSVParser<IntraDayInfo> {
     override suspend fun parse(stream: InputStream): List<IntraDayInfo> {
 
         val csvParser = CSVReader(InputStreamReader(stream))
