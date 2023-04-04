@@ -9,6 +9,7 @@ import androidx.compose.ui.graphics.Color
 
 private val appColors = lightColors(
     primary = Color.Green,
+    secondary = Color.LightGray,
     background = DarkBlue,
     onPrimary = Color.DarkGray,
     onBackground = TextWhite,

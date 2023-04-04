@@ -2,8 +2,10 @@ package com.mhdsuhail.stonks.di
 
 import com.mhdsuhail.stonks.data.csv.CSVParser
 import com.mhdsuhail.stonks.data.csv.CompanyListingParser
+import com.mhdsuhail.stonks.data.csv.IntraDayInfoParser
 import com.mhdsuhail.stonks.data.repository.StockRepositoryImpl
 import com.mhdsuhail.stonks.domain.model.CompanyListing
+import com.mhdsuhail.stonks.domain.model.IntraDayInfo
 import com.mhdsuhail.stonks.domain.repository.StockRepository
 import dagger.Binds
 import dagger.Module
@@ -20,6 +22,12 @@ abstract class RepositoryModule {
     abstract fun bindsCompanyListingsParser(
         companyListingParser: CompanyListingParser
     ) : CSVParser<CompanyListing>
+
+    @Binds
+    @Singleton
+    abstract fun bindsIntraDayInfoParser(
+        companyListingParser: IntraDayInfoParser
+    ) : CSVParser<IntraDayInfo>
 
     @Binds
     @Singleton

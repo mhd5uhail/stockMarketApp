@@ -1,10 +1,7 @@
 package com.mhdsuhail.stonks.presentation.company_listings
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -38,12 +35,16 @@ fun CompanyListingScreen(
             modifier = Modifier
                 .padding(16.dp)
                 .fillMaxWidth(),
-            placeholder = { Text("Search...",
-                color = MaterialTheme.colors.onBackground) },
+            placeholder = {
+                Text(
+                    "Search...",
+                    color = MaterialTheme.colors.secondary
+                )
+            },
             maxLines = 1,
             singleLine = true,
             colors = TextFieldDefaults.outlinedTextFieldColors(
-                unfocusedBorderColor = MaterialTheme.colors.onBackground
+                unfocusedBorderColor = MaterialTheme.colors.secondary
             )
         )
 
@@ -65,7 +66,10 @@ fun CompanyListingScreen(
                             .padding(16.dp)
                     )
                     if (i < state.companies.size) {
-                        Divider(modifier = Modifier.padding(horizontal = 16.dp))
+                        Divider(
+                            modifier = Modifier.padding(horizontal = 16.dp),
+                            color = MaterialTheme.colors.secondary
+                        )
                     }
                 }
             }
