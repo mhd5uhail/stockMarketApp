@@ -6,15 +6,10 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavGraph
-import com.mhdsuhail.stonks.presentation.company_listings.NavGraphs
+import com.mhdsuhail.stonks.presentation.NavGraphs
 import com.mhdsuhail.stonks.ui.theme.StonksTheme
 import com.ramcosta.composedestinations.DestinationsNavHost
-import com.ramcosta.composedestinations.spec.NavGraphSpec
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

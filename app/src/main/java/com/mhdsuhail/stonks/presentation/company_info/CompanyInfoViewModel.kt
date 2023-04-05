@@ -67,7 +67,4 @@ class CompanyInfoViewModel @Inject constructor(
         }
     }
 
-    fun onEvent() {
-
-    }
 }
