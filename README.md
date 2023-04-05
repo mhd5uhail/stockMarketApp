@@ -1,7 +1,7 @@
 # StonksApp
 A stock market application for learning Android/Kotlin MVVM, Clean Architecture and SOLID princles.
 
-<img src="screenshots/stonksDemo.webm" width="350">
+<img src="screenshots/stonksDemo.gif" width="350">
 
 # Libraries Used
 
